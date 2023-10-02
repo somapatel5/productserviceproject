@@ -1,51 +1,51 @@
 package dev.soma.productserviceproject.controllers;
 
 import dev.soma.productserviceproject.dtos.GenericProductDto;
+import dev.soma.productserviceproject.exceptions.NotFoundException;
 import dev.soma.productserviceproject.services.ProductServices;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
+import java.util.List;
 
 @RestController
 @RequestMapping("/products"  )
 public class  ProductController {
 
-  //  @Autowired   // not good practice
-    //field injection
+
     private ProductServices productServices;
 
-
-
-    // Dependency injeting by contoller.
-    //constructer injection(best one to use )
     public ProductController(@Qualifier("fakeStoreProductService") ProductServices productServices){
         this.productServices = productServices;
     }
 
-
-    //setter injection
-//    @Autowired
-//    public  void setProductServices(ProductServices productServices){
-//        this.productServices = productServices;
-//    }
-
-
     @GetMapping
-     public  void getAllProducct(){
+     public List<GenericProductDto> getAllProduct(){
+        return productServices.getAllProducts();
+    }
+
+    @GetMapping("/category/")
+    public List<GenericProductDto> getProductSpecificCategory() {
+        return productServices.getSpecificCategories();
 
     }
+
     @GetMapping("{id}")
-    public GenericProductDto getProductById(@PathVariable("id") Long id){
-        System.out.println("here it is");
+    public GenericProductDto getProductById(@PathVariable("id") Long id) throws NotFoundException{
         return productServices.getProductById(id) ;
 
     }
 
     @DeleteMapping("{id}")
-    public void deleteProductById(){
+    public ResponseEntity<GenericProductDto> deleteProductById(@PathParam("id") Long id){
+        return new ResponseEntity<>(
+                productServices.deleteProduct(id),
+                HttpStatus.NOT_FOUND
+
+        );
 
     }
 
@@ -53,11 +53,13 @@ public class  ProductController {
    @PostMapping
     public GenericProductDto createaProduct(@RequestBody GenericProductDto product){
 
-         return productServices.createProduct(product);
+          return productServices.createProduct(product);
     }
 
     @PutMapping("{id}")
-    public void updateProductById(){
+    public GenericProductDto updateProductById(@PathVariable("id")Long id){
+
+        return productServices.updateProductById(id);
 
     }
 

@@ -5,13 +5,17 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class Product extends BaseModel{
-
-    private String titlel;
-    private  String description;
+public class Product extends BaseModel {
+//lombog
+    private  Long id;
+    private String title;
+    private String description;
     private String image;
     private Category category;
     private double price;
+
+
+
 
 
 }
