@@ -1,6 +1,5 @@
 package dev.soma.productserviceproject.services;
 
-import dev.soma.productserviceproject.dtos.CategoryProductDto;
 import dev.soma.productserviceproject.dtos.FakeStoreProductDto;
 import dev.soma.productserviceproject.dtos.GenericProductDto;
 import dev.soma.productserviceproject.exceptions.NotFoundException;
@@ -15,7 +14,6 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 
 @Service("fakeStoreProductService")

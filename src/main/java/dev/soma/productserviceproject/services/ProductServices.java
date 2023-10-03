@@ -3,7 +3,7 @@ package dev.soma.productserviceproject.services;
 import dev.soma.productserviceproject.dtos.GenericProductDto;
 import dev.soma.productserviceproject.exceptions.NotFoundException;
 import java.util.List;
-import java.util.UUID;
+
 
 public interface ProductServices {
 
@@ -17,5 +17,6 @@ public interface ProductServices {
     GenericProductDto updateProductById(Long id);
 
     List <GenericProductDto> getSpecificCategories();
+
 
 }
